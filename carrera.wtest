@@ -1,0 +1,57 @@
+import carrera.*
+import vehiculos.*
+import lugares.*
+
+describe "Tests de la carrera p2" {
+
+    method initialize() {
+        carrera.inscriptos().clear()
+        carrera.rechazados().clear()
+    }
+
+    test "Ganador en Bagdad" {
+        carrera.cambiarSede(bagdad) 
+        carrera.presentarVehiculo(alambique) // 10 
+        carrera.presentarVehiculo(moto)      // 12
+        carrera.presentarVehiculo(autoDePierre) // 26 
+        assert.equals(alambique, carrera.ganador()) 
+    }
+
+    test "Ganador en Buenos Aires" {
+        carrera.cambiarSede(buenosAires) 
+        carrera.presentarVehiculo(chatarra) // cañones = 10, municiones = "ACME" (4 letras). 4 < 10 es true. Tiempo: 10 + 5 = 15 
+        carrera.presentarVehiculo(autoDePierre) // 26 
+        carrera.presentarVehiculo(alambique) // 10
+        assert.equals(alambique, carrera.ganador()) 
+    }
+
+    test "Cambiar la sede" {
+        carrera.cambiarSede(paris)
+        carrera.presentarVehiculo(antigualla) // rechazado por tener gangster impar
+        assert.that(carrera.rechazados().contains(antigualla))
+        antigualla.subirGangster("Sonny") // ahora es par
+        carrera.cambiarSede(paris) 
+        
+        assert.that(carrera.inscriptos().contains(antigualla))
+        assert.notThat(carrera.rechazados().contains(antigualla))
+    }
+
+    test "Convertible cambia de forma" {
+        carrera.cambiarSede(buenosAires)
+        carrera.presentarVehiculo(convertible) //rechazado
+        assert.that(carrera.rechazados().contains(convertible))
+        convertible.cambiarDeForma()
+        carrera.cambiarSede(buenosAires) 
+        
+        assert.that(carrera.inscriptos().contains(convertible))
+    }
+
+    test "Desgaste de los vehiculos" {
+        carrera.cambiarSede(bagdad) 
+        carrera.presentarVehiculo(alambique) 
+        carrera.irALaCiudad() 
+        assert.that(alambique.puedeFuncionar()) 
+        carrera.irALaCiudad() 
+        assert.notThat(alambique.puedeFuncionar()) // sin combustible
+    }
+}

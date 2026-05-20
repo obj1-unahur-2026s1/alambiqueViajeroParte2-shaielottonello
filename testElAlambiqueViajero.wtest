@@ -1,26 +1,24 @@
-import elAlambiqueViajero.*
+import personas.*
+import lugares.*
+import vehiculos.*
+
 test "luke cuenta cuando va de viaje"{
     luke.viajar(paris)
     assert.equals(1, luke.cantidadViajes())
 }
-
 test "luke viaja a paris"{
     luke.viajar(paris)
     assert.equals("Llavero Torre Eiffel", luke.recuerdo())
 }
-
-
 test "luke viaja a bs as"{
     luke.viajar(buenosAires)
     assert.equals("Mate", luke.recuerdo())
 }
-
 test "luke viaja a bagdad con un recuerdo diferente"{
     bagdad.recuerdo("Armas Masivas")
     luke.viajar(bagdad)
     assert.equals("Armas Masivas", luke.recuerdo())
 }
-
 test "luke viaja a bagdad"{
     bagdad.recuerdo("Armas Masivas")
     luke.viajar(bagdad)
@@ -36,16 +34,14 @@ test "luke viaja a las vegas cuando hace homenaje a paris"{
     luke.viajar(lasVegas)
     assert.equals("Llavero Torre Eiffel", luke.recuerdo())
 }
-
-
 test "luke viaja a paris y le qeuda combustibles para seguir viajando"{
     luke.viajar(paris)
-    assert.that(alambiqueVeloz.puedeFuncionar())
+    assert.that(alambique.puedeFuncionar())
 }
 test "luke viaja 2 veces a paris y ya no le queda combustibles para seguir viajando"{
     luke.viajar(paris)
     luke.viajar(paris)
-    assert.notThat(alambiqueVeloz.puedeFuncionar())
+    assert.notThat(alambique.puedeFuncionar())
 }
 test "luke viaja 2 veces, quiere viajar a Paris y no puede"{
     luke.viajar(buenosAires)
@@ -53,12 +49,10 @@ test "luke viaja 2 veces, quiere viajar a Paris y no puede"{
     luke.viajar(paris)
     assert.notEquals("Llavero Torre Eiffel",luke.recuerdo())
 }
-
 test "luke viaja a hurlingham en el convertible convertido en chatarra" {
   luke.vehiculo(convertible)
   convertible.convertir(chatarra)
   luke.viajar(hurlingham)
   assert.equals("sticker de la Unahur",luke.recuerdo())
   assert.equals(5,chatarra.cañones())
-
-  }
+}
