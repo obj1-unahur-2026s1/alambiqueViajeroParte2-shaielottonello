@@ -22,6 +22,10 @@ object carrera {
             inscriptos.remove(unVehiculo) // sacarlo de inscriptos si estaba ahí
         }
     }
+    // para agregar varios vehiculos de una vez
+    method agregarVehiculos(coleccionDeVehiculos) {
+        coleccionDeVehiculos.forEach({ v => self.presentarVehiculo(v) })
+    }
 
     method cambiarSede(nuevaCiudad) {
         ciudad = nuevaCiudad
